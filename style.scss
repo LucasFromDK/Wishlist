@@ -1,0 +1,174 @@
+//Remember to install Live Sass Compiler
+@import url(//fonts.googleapis.com/css?family=Lato:300:400);
+
+.topnav {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+}
+
+.wishlist {
+  display: contents;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.wishLink {
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1px;
+  font-size: 24px;
+  height: 10px;
+  color: #fff
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+h1 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  font-size: 36px;
+  color: #fff
+}
+
+p {
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1px;
+  font-size: 18px;
+  color: #333333;
+}
+
+a {
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1px;
+  font-size: 18px;
+  color: #333333;
+}
+
+.infoText {
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1px;
+  font-size: 24px;
+  height: 10px;
+  color: #fff
+}
+
+.header {
+  position: relative;
+  text-align: center;
+  background-color: green;
+  color: white;
+  min-height: 85vh; /* Change value to move bottom white square */
+}
+
+.inner-header {
+  height: 5vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.flex { /*Flexbox for containers*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.content {
+  position: relative;
+  height: 15vh;
+  text-align: center;
+  background-color: white;
+}
+
+.footer-text {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 1px;
+  font-size: 18px;
+  color: #333333;
+}
+
+.snow {
+  position: absolute;
+  bottom: 5px; /* Adjust the value to change wave position on Y-axis */
+  left: 0;
+  width: 100%;
+  height: 15vh;
+  margin-bottom: -7px; /* Fix for Safari gap */
+  min-height: 150px;
+  max-height: 275px;
+}
+
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+  .snow {
+    height: 40px;
+    min-height: 40px;
+  }
+  .content {
+    height: 30vh;
+  }
+  h1 {
+    font-size: 24px;
+  }
+}
+
+//Snowfall SCSS starts here.
+@function random_range($min, $max) {
+    $rand: random();
+    $random_range: $min + floor($rand * (($max - $min) + 1));
+    @return $random_range;
+}
+
+.snowfall {
+    $total: 200;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+
+    @for $i from 1 through $total {
+        $random-x: random(1000000) * 0.0001vw;
+        $random-offset: random_range(-100000, 100000) * 0.0001vw;
+        $random-x-end: $random-x + $random-offset;
+        $random-x-end-yoyo: $random-x + ($random-offset / 2);
+        $random-yoyo-time: random_range(30000, 80000) / 100000;
+        $random-yoyo-y: $random-yoyo-time * 100vh;
+        $random-scale: random(10000) * 0.0001;
+        $fall-duration: random_range(10, 30) * 1s;
+        $fall-delay: random(30) * -1s;
+
+        &:nth-child(#{$i}) {
+            opacity: random(10000) * 0.0001;
+            transform: translate($random-x, -10px) scale($random-scale);
+            animation: fall-#{$i} $fall-duration $fall-delay linear infinite;
+        }
+
+        @keyframes fall-#{$i} {
+            #{percentage($random-yoyo-time)} {
+                transform: translate($random-x-end, $random-yoyo-y) scale($random-scale);
+            }
+
+            to {
+                transform: translate($random-x-end-yoyo, 100vh) scale($random-scale);
+            }
+        }
+    }
+}
