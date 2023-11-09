@@ -65,7 +65,7 @@ a {
 .header {
   position: relative;
   text-align: center;
-  background-color: green;
+  background: linear-gradient(60deg, rgb(40, 27, 212) 0%, rgb(0, 201, 228) 100%);
   color: white;
   min-height: 85vh; /* Change value to move bottom white square */
 }
